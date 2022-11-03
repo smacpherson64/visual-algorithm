@@ -1,0 +1,2 @@
+.code{counter-reset:line-number}.line{counter-increment:line-number;padding-left:2em}.line:before{color:hsla(0,0%,100%,.25);content:counter(line-number);display:block;left:1em;position:absolute;text-align:right;width:2em}
+/*# sourceMappingURL=main.6f887461.css.map*/

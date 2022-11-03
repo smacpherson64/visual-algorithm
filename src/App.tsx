@@ -23,7 +23,7 @@ function generateList() {
     getRandomInt(0, 5) ? getRandomInt(1, 99) : 0,
     getRandomInt(0, 1) ? getRandomInt(1, 99) : 0,
     getRandomInt(0, 3) ? getRandomInt(1, 99) : 0,
-    getRandomInt(0, 1) ? getRandomInt(1, 99) : 0
+    getRandomInt(0, 1) ? getRandomInt(1, 99) : 0,
   ].map(toFieldData);
 }
 
@@ -47,7 +47,7 @@ export function CurrentArrow({ hide = false, position = 8 }) {
       style={{
         width: "calc((1/8) *  100%)",
         opacity: hide ? 0 : 100,
-        transform: hide ? "" : `translateX(calc(${position} * 100%))`
+        transform: hide ? "" : `translateX(calc(${position} * 100%))`,
       }}
     >
       <svg
@@ -71,7 +71,7 @@ export function TargetArrow({ hide = false, position = 8 }) {
       style={{
         width: "calc((1/8) *  100%)",
         opacity: hide ? 0 : 100,
-        transform: hide ? "" : `translateX(calc(${position} * 100%))`
+        transform: hide ? "" : `translateX(calc(${position} * 100%))`,
       }}
     >
       <svg
@@ -197,7 +197,7 @@ function swap<A>(left: number, right: number, array: A[]) {
 
 const reset = {
   target: "idle",
-  actions: "reset"
+  actions: "reset",
 };
 
 type Events =
@@ -226,91 +226,91 @@ const algorithmMachine = createMachine<Context, Events>(
       target: -1,
       current: 8,
       zeros: 0,
-      list: generateList()
+      list: generateList(),
     },
     states: {
       idle: {
         on: {
           START: {
-            target: "step"
+            target: "step",
           },
-          RESET: reset
-        }
+          RESET: reset,
+        },
       },
       step: {
         always: [
           {
             target: "done",
-            cond: "isDone"
-          }
+            cond: "isDone",
+          },
         ],
         on: {
           STEP: "match",
-          RESET: reset
+          RESET: reset,
         },
-        entry: ["select", "findTarget"]
+        entry: ["select", "findTarget"],
       },
       match: {
         on: {
           IS_ZERO: {
             target: "mark",
-            actions: "findTarget"
+            actions: "findTarget",
           },
           IS_NON_ZERO: "passthrough",
-          RESET: reset
-        }
+          RESET: reset,
+        },
       },
       passthrough: {
         always: [
           { cond: "hasZeros", target: "swap" },
-          { cond: "hasNoZeros", target: "nonZeroInCorrectPosition" }
-        ]
+          { cond: "hasNoZeros", target: "nonZeroInCorrectPosition" },
+        ],
       },
       nonZeroInCorrectPosition: {
         on: {
-          ACKNOWLEDGE_NO_CHANGE: "next"
-        }
+          ACKNOWLEDGE_NO_CHANGE: "next",
+        },
       },
       swap: {
         on: {
           SWAP: {
             target: "next",
-            actions: "swap"
+            actions: "swap",
           },
-          RESET: reset
-        }
+          RESET: reset,
+        },
       },
       mark: {
         on: {
-          MARK: "next"
+          MARK: "next",
         },
-        entry: ["mark"]
+        entry: ["mark"],
       },
       next: {
         on: {
           NEXT: "step",
-          RESET: reset
-        }
+          RESET: reset,
+        },
       },
       done: {
         on: {
-          RESET: reset
-        }
-      }
-    }
+          RESET: reset,
+        },
+      },
+    },
   },
   {
     guards: {
       isDone: (context) => context.current < 0,
       hasZeros: (context) => context.zeros !== 0,
-      hasNoZeros: (context) => context.zeros === 0
+      hasNoZeros: (context) => context.zeros === 0,
     },
     actions: {
       reset: assign({
         current: () => 8,
         zeros: () => 0,
         list: () => generateList(),
-        target: () => -1
+        target: () => -1,
       }),
       select: assign({ current: (context) => context.current - 1 }),
       mark: assign({
@@ -320,17 +320,17 @@ const algorithmMachine = createMachine<Context, Events>(
               ? item
               : { ...item, markedAsZero: true }
           ),
-        zeros: (context) => context.zeros + 1
+        zeros: (context) => context.zeros + 1,
       }),
       swap: assign({
         list: (context) =>
-          swap(context.current, context.current + context.zeros, context.list)
+          swap(context.current, context.current + context.zeros, context.list),
       }),
       findTarget: assign({
         target: (context) =>
-          context.zeros ? context.current + context.zeros : -1
-      })
-    }
+          context.zeros ? context.current + context.zeros : -1,
+      }),
+    },
   }
 );
 
@@ -344,9 +344,7 @@ function getNext(
       context: Context;
     }
   >,
-  send: (
-    event: Events["type"]
-  ) => State<
+  send: (event: Events["type"]) => State<
     Context,
     Events,
     any,
@@ -420,6 +418,8 @@ export default function App() {
 
       return () => clearInterval(interval);
     }
+
+    return undefined;
   }, [automated, state, send]);
 
   return (

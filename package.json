@@ -4,26 +4,26 @@
   "description": "",
   "keywords": [],
   "main": "src/index.js",
+  "homepage": "https://smacpherson64.github.io/visual-algorithm",
   "dependencies": {
-    "@headlessui/react": "1.4.0",
-    "@types/react": "17.0.18",
-    "@types/react-dom": "17.0.9",
-    "@xstate/react": "1.5.1",
-    "prism-react-renderer": "1.2.1",
-    "ramda": "0.27.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-scripts": "4.0.0",
-    "typescript": "4.3.5",
-    "xstate": "4.23.1"
+    "@headlessui/react": "1.7.3",
+    "@types/react": "18.0.24",
+    "@types/react-dom": "18.0.8",
+    "@xstate/react": "3.0.1",
+    "prism-react-renderer": "1.3.5",
+    "ramda": "0.28.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scripts": "^5.0.1",
+    "typescript": "4.8.4",
+    "xstate": "4.34.0"
   },
   "devDependencies": {
-    "@babel/runtime": "7.13.8",
-    "typescript": "4.1.3"
+    "@babel/runtime": "7.20.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv ./build ./docs",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
